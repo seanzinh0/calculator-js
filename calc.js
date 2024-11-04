@@ -41,6 +41,7 @@ const calculator = {
     calculate(){
        //set inputNum to an empty string
        let inputNum = "";
+       //create prevAnswer to store and keep track of answers to get proper calculations
        let prevAnswer = this.answer;
        //loop through characters in the input string
         for (let i = 0; i < this.input.length; i++) {
