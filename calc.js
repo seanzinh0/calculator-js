@@ -41,7 +41,7 @@ const calculator = {
     calculate(){
        //set inputNum to an empty string
        let inputNum = "";
-
+       let prevAnswer = this.answer;
        //loop through characters in the input string
         for (let i = 0; i < this.input.length; i++) {
             const char = this.input[i];//current char
@@ -50,14 +50,17 @@ const calculator = {
                 inputNum += char;// if condition is met then append the char to the string inputNum
             //check if char is an operator which means user is ready to do a calculation
             }else if (this.operators.includes(char)){
-                this.updateAnswer(inputNum);// if a number exists updates the answer with said number
+                if(inputNum) {
+                    this.updateAnswer(inputNum, prevAnswer);// if a number exists updates the answer with said number
+                    prevAnswer = this.answer;
+                }
                 this.chosenOperator = char;// sets operator to char
                 inputNum = "";// resets inputNum
             }
         }
         //checks if number needs to be calculated after loop and updates answer, basically allows for more than one operation to be used
         if(inputNum) {
-            this.updateAnswer(inputNum);// update answer if there is a number that needs to be calculated
+            this.updateAnswer(inputNum, prevAnswer);// update answer if there is a number that needs to be calculated
         }
         //turns answer into a string and stores in the input property
         this.input = this.answer.toString();
@@ -81,9 +84,9 @@ const calculator = {
                 return newAnswer;
         }
     },
-    updateAnswer(inputNum){
+    updateAnswer(inputNum, prevAnswer){
         const number = Number(inputNum);
-        this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);
+        this.answer = this.calculationHelper(number, prevAnswer, this.chosenOperator);
     }
 };
 
