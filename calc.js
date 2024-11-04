@@ -1,3 +1,5 @@
+"use strict";
+
 const input = document.getElementById("calc-input");
 const numberButtons = document.querySelectorAll(".num");
 const operatorButtons = document.querySelectorAll(".operator");
@@ -7,7 +9,8 @@ const equals = document.getElementById("equals");
 const calculator = {
     input: "",
     answer: 0,
-    operator: "+",
+    operators: ["+", "-", "*", "/"],
+    chosenOperator: "+",
     updateInput() {
         input.textContent = this.input;
     },
@@ -21,7 +24,7 @@ const calculator = {
     clearInput(){
         this.input = "";
         this.answer = 0;
-        this.operator = "+";
+        this.chosenOperator = "+";
         this.updateInput();
     },
     calculate(){
@@ -31,18 +34,18 @@ const calculator = {
             const char = this.input[i];
             if(!isNaN(char) || char === "."){
                 inputNum += char;
-            }else if (["+", "-", "*", "/"].includes(char)){
+            }else if (this.operators.includes(char)){
                 if(inputNum){
                     const number = Number(inputNum)
-                    this.answer = this.calculationHelper(number,this.answer, this.operator);
+                    this.answer = this.calculationHelper(number,this.answer, this.chosenOperator);
                 }
-                this.operator = char;
+                this.chosenOperator = char;
                 inputNum = "";
             }
         }
         if(inputNum){
             const number = Number(inputNum);
-            this.answer = this.calculationHelper(number, this.answer, this.operator);
+            this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);
         }
         this.input = this.answer.toString();
         this.updateInput();
