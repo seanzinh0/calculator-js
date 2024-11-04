@@ -51,9 +51,10 @@ const calculator = {
                 inputNum += char;// if condition is met then append the char to the string inputNum
             //check if char is an operator which means user is ready to do a calculation
             }else if (this.operators.includes(char)){
+                //checks to make sure that it is inputNum
                 if(inputNum) {
                     this.updateAnswer(inputNum, prevAnswer);// if a number exists updates the answer with said number
-                    prevAnswer = this.answer;
+                    prevAnswer = this.answer;// assigns the answer to prev answer to keep track of answers
                 }
                 this.chosenOperator = char;// sets operator to char
                 inputNum = "";// resets inputNum
