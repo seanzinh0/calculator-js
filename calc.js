@@ -6,60 +6,62 @@ const equals = document.getElementById("equals");
 
 const calculator = {
     input: "",
+    answer: 0,
+    operator: "+",
     updateInput() {
         input.textContent = this.input;
     },
     addInput(val){
+        if(this.input === this.answer.toString()){
+            this.input = "";
+        }
         this.input += val;
         this.updateInput();
     },
     clearInput(){
         this.input = "";
+        this.answer = 0;
+        this.operator = "+";
         this.updateInput();
     },
     calculate(){
-        let numA = "";
-        let numB = "";
-        let operator = "";
-        let hasOperator = false;
+       let inputNum = "";
 
         for (let i = 0; i < this.input.length; i++) {
             const char = this.input[i];
-
-            if(!isNaN(char) && char !== ""){
-                if(!hasOperator){
-                    numA += char;
-                }else {
-                    numB += char;
-                }
+            if(!isNaN(char) || char === "."){
+                inputNum += char;
             }else if (["+", "-", "*", "/"].includes(char)){
-                if(!hasOperator){
-                    operator = char;
-                    hasOperator = true;
-                }else {
-                    return "You have more than one operator"
+                if(inputNum){
+                    const number = Number(inputNum)
+                    this.answer = this.calculationHelper(number,this.answer, this.operator);
                 }
+                this.operator = char;
+                inputNum = "";
             }
         }
-        const numberA = Number(numA);
-        const numberB = Number(numB);
-        return this.calculationHelper(numberA, numberB, operator);
+        if(inputNum){
+            const number = Number(inputNum);
+            this.answer = this.calculationHelper(number, this.answer, this.operator);
+        }
+        this.input = this.answer.toString();
+        this.updateInput();
     },
-    calculationHelper(numberA, numberB, operator) {
+    calculationHelper(number, newAnswer, operator) {
         switch (operator) {
             case "+":
-                return (numberA + numberB).toString();
+                return newAnswer + number;
             case "-":
-                return (numberA - numberB).toString();
+                return newAnswer - number;
             case "*":
-                return (numberA * numberB).toString();
+                return newAnswer * number;
             case "/":
-                if(numberB === 0) {
-                    return "Can't divide by zero";
+                if(number === 0) {
+                    return "UNDEFINED";
                 }
-                return (numberA / numberB).toString();
+                return newAnswer/number;
             default:
-                return "There was an error you had no valid operator";
+                return newAnswer;
         }
     }
 };
@@ -81,8 +83,6 @@ clear.addEventListener("click",() => {
 })
 
 equals.addEventListener("click", () => {
-    const answer = calculator.calculate();
-    calculator.input = Number(answer);
-    calculator.updateInput();
+    calculator.calculate();
 })
 
