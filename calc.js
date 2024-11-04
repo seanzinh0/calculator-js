@@ -85,9 +85,10 @@ const calculator = {
                 return newAnswer;
         }
     },
+    //use prevAnswer and inputNum as parameters to allow for calculations to continue
     updateAnswer(inputNum, prevAnswer){
         const number = Number(inputNum);
-        this.answer = this.calculationHelper(number, prevAnswer, this.chosenOperator);
+        this.answer = this.calculationHelper(number, prevAnswer, this.chosenOperator);// replace with prevAnswer so that you can track calculations
     }
 };
 
