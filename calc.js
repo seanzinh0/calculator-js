@@ -35,17 +35,13 @@ const calculator = {
             if(!isNaN(char) || char === "."){
                 inputNum += char;
             }else if (this.operators.includes(char)){
-                if(inputNum){
-                    const number = Number(inputNum)
-                    this.answer = this.calculationHelper(number,this.answer, this.chosenOperator);
-                }
+                this.updateAnswer(inputNum);
                 this.chosenOperator = char;
                 inputNum = "";
             }
         }
         if(inputNum){
-            const number = Number(inputNum);
-            this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);
+           this.updateAnswer(inputNum);
         }
         this.input = this.answer.toString();
         this.updateInput();
@@ -66,6 +62,10 @@ const calculator = {
             default:
                 return newAnswer;
         }
+    },
+    updateAnswer(inputNum){
+        const number = Number(inputNum);
+        this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);
     }
 };
 
