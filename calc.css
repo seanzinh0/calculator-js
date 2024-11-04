@@ -40,8 +40,14 @@ body {
 }
 
 #calc-input {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 26px;
     background: white;
     border-radius: 15px;
+    border: none;
+    padding-right: 32px;
 }
 
 button {
@@ -66,6 +72,9 @@ button {
 
 #clear {
     background: #d1d1d1;
+    grid-column-start: 0;
+    grid-column-end: span 3;
+    width: 100%;
 }
 
 .num:hover {
