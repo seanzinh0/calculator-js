@@ -88,7 +88,7 @@ const calculator = {
     },
     //use prevAnswer and inputNum as parameters to allow for calculations to continue
     updateAnswer(inputNum, prevAnswer){
-        const number = Number(inputNum);
+        const number = Number(inputNum);// converts the input into a number to perform calculations
         this.answer = this.calculationHelper(number, prevAnswer, this.chosenOperator);// replace with prevAnswer so that you can track calculations
     }
 };
