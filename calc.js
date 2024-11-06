@@ -28,9 +28,12 @@ const calculator = {
     },
     addInput(val){
         console.log(this.prevAnswers);
+        console.log(this.answer);
         if(this.input === this.answer.toString()){
             this.input = "";
             this.answer = this.prevAnswers[0];
+        }else if (this.operators.includes(this.input)){
+            this.answer = this.prevAnswers[this.prevAnswers.length - 1];
         }
         this.input += val;
         this.updateInput();
