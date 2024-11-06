@@ -22,12 +22,15 @@ const calculator = {
     answer: 0,
     operators: ["+", "-", "*", "/"],
     chosenOperator: "+",
+    prevAnswers: [0],
     updateInput() {
         input.textContent = this.input;
     },
     addInput(val){
+        console.log(this.prevAnswers);
         if(this.input === this.answer.toString()){
             this.input = "";
+            this.answer = this.prevAnswers[0];
         }
         this.input += val;
         this.updateInput();
@@ -36,13 +39,13 @@ const calculator = {
         this.input = "";
         this.answer = 0;
         this.chosenOperator = "+";
+        this.prevAnswers = [0];
         this.updateInput();
     },
     calculate(){
        //set inputNum to an empty string
        let inputNum = "";
        //create prevAnswer to store and keep track of answers to get proper calculations
-       let prevAnswer = this.answer;
        //loop through characters in the input string
         for (let i = 0; i < this.input.length; i++) {
             const char = this.input[i];//current char
@@ -53,8 +56,7 @@ const calculator = {
             }else if (this.operators.includes(char)){
                 //checks to make sure that it is inputNum
                 if(inputNum) {
-                    this.updateAnswer(inputNum, prevAnswer);// if a number exists updates the answer with said number
-                    prevAnswer = this.answer;// assigns the answer to prev answer to keep track of answers
+                    this.updateAnswer(inputNum);// if a number exists updates the answer with said number
                 }
                 this.chosenOperator = char;// sets operator to char
                 inputNum = "";// resets inputNum
@@ -62,8 +64,9 @@ const calculator = {
         }
         //checks if number needs to be calculated after loop and updates answer, basically allows for more than one operation to be used
         if(inputNum) {
-            this.updateAnswer(inputNum, prevAnswer);// update answer if there is a number that needs to be calculated
+            this.updateAnswer(inputNum);// update answer if there is a number that needs to be calculated
         }
+        this.prevAnswers.push(this.answer);
         //turns answer into a string and stores in the input property
         this.input = this.answer.toString();
         //updates input to show the new answer
@@ -87,9 +90,9 @@ const calculator = {
         }
     },
     //use prevAnswer and inputNum as parameters to allow for calculations to continue
-    updateAnswer(inputNum, prevAnswer){
+    updateAnswer(inputNum){
         const number = Number(inputNum);// converts the input into a number to perform calculations
-        this.answer = this.calculationHelper(number, prevAnswer, this.chosenOperator);// replace with prevAnswer so that you can track calculations
+        this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);// replace with prevAnswer so that you can track calculations
     }
 };
 
