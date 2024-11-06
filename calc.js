@@ -22,7 +22,7 @@ const calculator = {
     answer: 0,
     operators: ["+", "-", "*", "/"],
     chosenOperator: "+",
-    prevAnswers: [0],
+    prevAnswers: [0], //create array property that stores previous answers and initialized with 0
     updateInput() {
         input.textContent = this.input;
     },
@@ -32,7 +32,7 @@ const calculator = {
         if(this.input === this.answer.toString()){
             this.input = "";
             this.answer = this.prevAnswers[0];
-        }else if (this.operators.includes(this.input)){
+        }else if (this.operators.includes(this.input)){ //checks the use of operator and if used sets the answer to the most recent answer
             this.answer = this.prevAnswers[this.prevAnswers.length - 1];
         }
         this.input += val;
@@ -69,7 +69,7 @@ const calculator = {
         if(inputNum) {
             this.updateAnswer(inputNum);// update answer if there is a number that needs to be calculated
         }
-        this.prevAnswers.push(this.answer);
+        this.prevAnswers.push(this.answer);// push the answer to the prevAnswers array property
         //turns answer into a string and stores in the input property
         this.input = this.answer.toString();
         //updates input to show the new answer
@@ -92,10 +92,10 @@ const calculator = {
                 return newAnswer;
         }
     },
-    //use prevAnswer and inputNum as parameters to allow for calculations to continue
+    //use inputNum as parameter to allow for calculations to continue
     updateAnswer(inputNum){
         const number = Number(inputNum);// converts the input into a number to perform calculations
-        this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);// replace with prevAnswer so that you can track calculations
+        this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);// use this.answer to do calculations and store the answer into this.answer as well
     }
 };
 
