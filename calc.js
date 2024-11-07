@@ -65,7 +65,7 @@ const calculator = {
             }else if (this.operators.includes(char)){
                 //checks to make sure that it is inputNum
                 if(inputNum) {
-                   this.equation.push(Number(inputNum));// add input num to the equation array
+                   this.equation.push(Number(inputNum));// add input num to the equation array and type cast to a number
                     inputNum = "";// resets inputNum
                 }
                 this.equation.push(char); //adds operator to my equation
