@@ -13,89 +13,109 @@ const equals = document.getElementById("equals");
  * updateInput() method updates the text of the input element to show current input such as inputted numbers or answers
  * addInput(val) method adds value to input if input was an answer it resets it
  * clearInput() method resets all input values to the default ones
- * calculate() method takes in inputs and creates numbers out of them and uses updateAnswer method when using operators to calc the answer
- * calculationHelper method does the basic math for all the operations and is used in the updateAnswer method it takes two numbers and an operator
- * updateAnswer() method updates the answer by calling the calculation helper method and assigning it to the answer property
+ *
  */
 const calculator = {
     input: "",
     answer: 0,
     operators: ["+", "-", "*", "/"],
     chosenOperator: "+",
-    prevAnswers: [0], //create array property that stores previous answers and initialized with 0
+    equation: [],
     updateInput() {
         input.textContent = this.input;
     },
     addInput(val){
-        console.log(this.prevAnswers);
-        console.log(this.answer);
-        if(this.input === this.answer.toString()){
-            this.input = "";
-            this.answer = this.prevAnswers[0];
-        }else if (this.operators.includes(this.input)){ //checks the use of operator and if used sets the answer to the most recent answer
-            this.answer = this.prevAnswers[this.prevAnswers.length - 1];
+        if(this.input === this.answer.toString() && !this.operators.includes(val)){ //checks if input is answer and if not an operator
+            this.input = val; //changes input to the value you put in
+        }else {
+            this.input += val;//if an operator appends the val to the input to add operator to continue with a new operation on top of prev answer
         }
-        this.input += val;
         this.updateInput();
     },
     clearInput(){
         this.input = "";
         this.answer = 0;
         this.chosenOperator = "+";
-        this.prevAnswers = [0];
+        this.equation = [];
         this.updateInput();
     },
     calculate(){
-       //set inputNum to an empty string
-       let inputNum = "";
-       //create prevAnswer to store and keep track of answers to get proper calculations
-       //loop through characters in the input string
+        this.createEquation()//create the equation
+        //check mdas
+        this.checkMultDiv()
+        this.checkAddSub()
+
+        this.answer = this.equation[0] //store answer
+        this.equation = []; //resets the equation
+        this.input = this.answer.toString(); //sets the input to the answer
+        this.updateInput();//displays the answer
+    },
+    createEquation(){
+        //set equation to an empty array
+        this.equation = [];
+        //set inputNum to an empty string
+        let inputNum = "";
+        //create prevAnswer to store and keep track of answers to get proper calculations
+        //loop through characters in the input string
         for (let i = 0; i < this.input.length; i++) {
-            const char = this.input[i];//current char
-            //check if char is a digit or decimal
+            const char = this.input[i];
             if(!isNaN(char) || char === "."){
                 inputNum += char;// if condition is met then append the char to the string inputNum
-            //check if char is an operator which means user is ready to do a calculation
+                //check if char is an operator
             }else if (this.operators.includes(char)){
                 //checks to make sure that it is inputNum
                 if(inputNum) {
-                    this.updateAnswer(inputNum);// if a number exists updates the answer with said number
+                   this.equation.push(Number(inputNum));// add input num to the equation array
+                    inputNum = "";// resets inputNum
                 }
-                this.chosenOperator = char;// sets operator to char
-                inputNum = "";// resets inputNum
+                this.equation.push(char); //adds operator to my equation
             }
         }
         //checks if number needs to be calculated after loop and updates answer, basically allows for more than one operation to be used
         if(inputNum) {
-            this.updateAnswer(inputNum);// update answer if there is a number that needs to be calculated
+            this.equation.push(Number(inputNum));
         }
-        this.prevAnswers.push(this.answer);// push the answer to the prevAnswers array property
-        //turns answer into a string and stores in the input property
-        this.input = this.answer.toString();
-        //updates input to show the new answer
-        this.updateInput();
     },
-    calculationHelper(number, newAnswer, operator) {
-        switch (operator) {
+    checkMultDiv(){
+        for (let i = 0; i < this.equation.length; i++) {
+            if(this.equation[i] === "*" || this.equation[i] === "/"){
+                let numA = this.equation[i-1];
+                let operation = this.equation[i];
+                let numB = this.equation[i+1];
+                let answer = this.calculationHelper(numA, numB, operation);
+                this.equation.splice(i - 1, 3, answer);// replaces the first mult or div calc with the new answer
+                i--; //decrement i so that it checks from the initial index to continue to check for mult or div
+            }
+        }
+    },
+    checkAddSub(){
+        for (let i = 0; i < this.equation.length; i++) {
+            if(this.equation[i] === "+" || this.equation[i] === "-"){
+                let numA = this.equation[i-1];
+                let operation = this.equation[i];
+                let numB = this.equation[i+1];
+                let answer = this.calculationHelper(numA, numB, operation);
+                this.equation.splice(i - 1, 3, answer);// replaces the first sub or add calc with the new answer
+                i--; //decrement i so that it checks from the initial index to continue to check for sub or add
+            }
+        }
+    },
+    calculationHelper(numA, numB, operation) {
+        switch (operation) {
             case "+":
-                return newAnswer + number;
+                return numA + numB;
             case "-":
-                return newAnswer - number;
+                return numA - numB;
             case "*":
-                return newAnswer * number;
+                return numA * numB;
             case "/":
-                if(number === 0) {
+                if(numB === 0) {
                     return "UNDEFINED";
                 }
-                return newAnswer/number;
+                return numA/numB;
             default:
-                return newAnswer;
+                return numA;
         }
-    },
-    //use inputNum as parameter to allow for calculations to continue
-    updateAnswer(inputNum){
-        const number = Number(inputNum);// converts the input into a number to perform calculations
-        this.answer = this.calculationHelper(number, this.answer, this.chosenOperator);// use this.answer to do calculations and store the answer into this.answer as well
     }
 };
 
