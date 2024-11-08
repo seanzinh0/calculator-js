@@ -21,6 +21,12 @@ calculationHelper() computes simple math based on operation.
 
 Link to my calculator: https://seanzinh0.github.io/calculator-js/
 
+To use the calculator just press any number with an operator button to calculate what you want to calculate.
+The calculator performs PEMDAS without exponents or parentheses.
+You can hit clear to clear the input or if you want to create another equation right away if you press a number after getting an answer
+the calculator will auto clear. Also if you would like to perform more calculations after getting an answer you can do so by selecting an operator
+the answer is stored and will be the first number in your next calculation.
+
 I hope you enjoy the way I added functionality into my calculator app.
 
 THANK YOU!!
