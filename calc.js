@@ -155,3 +155,23 @@ equals.addEventListener("click", () => {
     calculator.calculate();
 })
 
+//allows for keyboard compatibility if a key is pressed that meets the conditional it will add the input of the value of the key.
+document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    //allows for numbers to be used on keyboard
+    if ((key >= "0" && key <= "9") || key === ".") {
+        calculator.addInput(key);
+    }
+    //allows for keyboard operations to be used
+    if (key === "+" || key === "-" || key === "*" || key === "/") {
+        calculator.addInput(key);
+    }
+    //when enter is pressed the calculation is performed
+    if (key === "Enter") {
+        calculator.calculate();
+    }
+    //if esc or backspace is selected then teh input is deleted
+    if (key === "Escape" || key === "Backspace") {
+        calculator.clearInput();
+    }
+});
