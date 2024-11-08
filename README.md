@@ -26,6 +26,9 @@ The calculator performs PEMDAS without exponents or parentheses.
 You can hit clear to clear the input or if you want to create another equation right away if you press a number after getting an answer
 the calculator will auto clear. Also if you would like to perform more calculations after getting an answer you can do so by selecting an operator
 the answer is stored and will be the first number in your next calculation.
+The calculator is also keyboard compatible so you can use any key from 0-9 and also use . to input numbers.
+For operations you can use the keyboard keys *, /, +, - and that will input the operator.
+To submit use the equals key and to clear use backspace or esc keys.
 
 I hope you enjoy the way I added functionality into my calculator app.
 
