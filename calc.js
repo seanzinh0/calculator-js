@@ -8,12 +8,16 @@ const clear = document.getElementById("clear");
 const equals = document.getElementById("equals");
 
 /**
- * Calculator object that contains four properties: input, answer, operators, and chosenOperator
+ * Calculator object that contains five properties: input, answer, operators, chosenOperator, and equation
  * Defaults chosenOperator to + because it adds the initial input to input area if it wasn't then no initial number would be available to calculate based off of
  * updateInput() method updates the text of the input element to show current input such as inputted numbers or answers
  * addInput(val) method adds value to input if input was an answer it resets it
  * clearInput() method resets all input values to the default ones
- *
+ * calculate() method performs calculations for my calculator
+ * createEquation() method takes input and adds it into an array to create an equation
+ * checkMultDiv() checks for multiplication or division and solves based off the operator and puts the solution at the index of the operator
+ * checkkAddSub() checks for addition or subtraction and solves based off the operator and puts the solution at the index of the operator
+ * calculationHelper() computes simple math based on operation
  */
 const calculator = {
     input: "",
