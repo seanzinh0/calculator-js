@@ -8,7 +8,7 @@ input, answer, operators, chosenOperator, and equation.
 Input is initialized to an empty string. Answer is initialized to 0. Operators contains an array of operators used for calculation;
 ChosenOperator is initialized to + so that it adds the first value into the input. Lastly, equation is an empty array.
 
-There were 8 methods I created that are inside the calculator object: updateInput, addInput, clearInput, calculate, createEquation, checkMultDiv, checkAddSub, calculation helper.
+There were 8 methods I created that are inside the calculator object: updateInput, addInput, clearInput, calculate, createEquation, checkMultDiv, checkAddSub, calculationHelper.
 
 updateInput() method updates the text of the input element to show current input such as inputted numbers or answers.
 addInput(val) method adds value to input if input was an answer it resets it.
