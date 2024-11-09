@@ -156,8 +156,10 @@ equals.addEventListener("click", () => {
 })
 
 //allows for keyboard compatibility if a key is pressed that meets the conditional it will add the input of the value of the key.
-document.addEventListener("keydown", (event) => {
-    const key = event.key;
+document.addEventListener("keydown", checkKey);
+
+function checkKey(e){
+    const key = e.key;
     //allows for numbers to be used on keyboard
     if ((key >= "0" && key <= "9") || key === ".") {
         calculator.addInput(key);
@@ -174,4 +176,4 @@ document.addEventListener("keydown", (event) => {
     if (key === "Escape" || key === "Backspace") {
         calculator.clearInput();
     }
-});
+}
