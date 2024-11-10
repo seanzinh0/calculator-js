@@ -28,7 +28,7 @@ the calculator will auto clear. Also if you would like to perform more calculati
 the answer is stored and will be the first number in your next calculation.
 The calculator is also keyboard compatible so you can use any key from 0-9 and also use . to input numbers.
 For operations you can use the keyboard keys *, /, +, - and that will input the operator.
-To submit use the equals key and to clear use backspace or esc keys.
+To submit use the equals key and to clear use backspace or esc keys. You cannot have operators inputted consecutively as well.
 
 I hope you enjoy the way I added functionality into my calculator app.
 
