@@ -32,6 +32,9 @@ const calculator = {
         if(this.input === this.answer.toString() && !this.operators.includes(val)){ //checks if input is answer and if not an operator
             this.input = val; //changes input to the value you put in
         }else {
+            if(this.operators.includes(val) && this.operators.includes(this.input[this.input.length - 1])){//prevent two operators being next to each other
+                return;
+            }
             this.input += val;//if an operator appends the val to the input to add operator to continue with a new operation on top of prev answer
         }
         this.updateInput();
